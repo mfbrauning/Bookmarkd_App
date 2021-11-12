@@ -30,7 +30,15 @@ mongoose.connection
     .on("close", () => console.log("disconnected from mongoose"))
     .on("error", (error)=> console.log(error));
 
-
+/////////////////////
+//model
+////////
+ const bookmarkSchema =new mongoose.Schema({
+     name: String
+     url: String
+ },
+ {timestamp: true})
+ const Bookmark= mongoose.model("Bookmark", bookmarkSchema)
 //////////////////////////////
 // ROUTES
 //////////////////////////////
