@@ -80,9 +80,9 @@ app.put("/bookmarks/:id", async (req, res) => {
 })
 
 // Delete Route 
-app.delete("/bookmarks/:id", (req, res) => {
+app.delete("/bookmarks/:id", async (req, res) => {
     try{
-        res.json(await Bookmark.findByIdAndDelete(req.body))
+        res.json(await Bookmark.findByIdAndDelete(req.params.id))
     }catch(error){
         res.status(400).json(error)
     }
