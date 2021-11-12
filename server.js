@@ -73,9 +73,9 @@ app.post("/bookmarks", async(req, res) => {
 // Update Route
 app.put("/bookmarks/:id", async (req, res) => {
     try{
-        res.json(await Bookmark.findByIdAndUpdate(req.body))
-    }catch(error){
-        res.status(400).json(error)
+        res.json(await Bookmark.findByIdAndUpdate(req.params.id, req.body, {new: true}))
+    } catch(error) {
+        res.status(400).json({error})
     }
 })
 
