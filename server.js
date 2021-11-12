@@ -30,6 +30,18 @@ mongoose.connection
     .on("close", () => console.log("disconnected from mongoose"))
     .on("error", (error)=> console.log(error));
 
+/////////////////////
+//model
+////////
+const bookmarkSchema = new mongoose.Schema(
+    {
+      name: String,
+      url: String,
+    },
+    { timestamp: true }
+  );
+  
+  const Bookmark = mongoose.model("Bookmark", bookmarkSchema);
 
 //////////////////////////////
 // ROUTES
@@ -43,7 +55,7 @@ app.get("/", (req, res) => {
 // Index Route 
 app.get("/bookmarks", async (req, res) => {
     try{
-        res.json(await .find({}))
+        res.json(await Bookmark.find({}))
     }catch(error){
         res.status(400).json(error)
     }
@@ -52,7 +64,7 @@ app.get("/bookmarks", async (req, res) => {
 // Create Route
 app.post("/bookmarks", async(req, res) => {
     try{
-        res.json(await .create(req.body))
+        res.json(await Bookmark.create(req.body))
     }catch(error){
         res.status(400).json(error)
     }
@@ -61,7 +73,7 @@ app.post("/bookmarks", async(req, res) => {
 // Update Route
 app.put("/bookmarks/:id", async (req, res) => {
     try{
-        res.json(await .findByIdAndUpdate(req.body))
+        res.json(await Bookmark.findByIdAndUpdate(req.body))
     }catch(error){
         res.status(400).json(error)
     }
@@ -70,7 +82,7 @@ app.put("/bookmarks/:id", async (req, res) => {
 // Delete Route 
 app.delete("/bookmarks/:id", (req, res) => {
     try{
-        res.json(await .findByIdAndDelete(req.body))
+        res.json(await Bookmark.findByIdAndDelete(req.body))
     }catch(error){
         res.status(400).json(error)
     }
