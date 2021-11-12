@@ -30,6 +30,18 @@ mongoose.connection
     .on("close", () => console.log("disconnected from mongoose"))
     .on("error", (error)=> console.log(error));
 
+/////////////////////
+//model
+////////
+const bookmarkSchema = new mongoose.Schema(
+    {
+      name: String,
+      url: String,
+    },
+    { timestamp: true }
+  );
+  
+  const Bookmark = mongoose.model("Bookmark", bookmarkSchema);
 
 //////////////////////////////
 // ROUTES
@@ -38,6 +50,42 @@ mongoose.connection
 // Test Route
 app.get("/", (req, res) => {
     res.send("App is working")
+})
+
+// Index Route 
+app.get("/bookmarks", async (req, res) => {
+    try{
+        res.json(await Bookmark.find({}))
+    }catch(error){
+        res.status(400).json(error)
+    }
+})
+
+// Create Route
+app.post("/bookmarks", async(req, res) => {
+    try{
+        res.json(await Bookmark.create(req.body))
+    }catch(error){
+        res.status(400).json(error)
+    }
+})
+
+// Update Route
+app.put("/bookmarks/:id", async (req, res) => {
+    try{
+        res.json(await Bookmark.findByIdAndUpdate(req.body))
+    }catch(error){
+        res.status(400).json(error)
+    }
+})
+
+// Delete Route 
+app.delete("/bookmarks/:id", async (req, res) => {
+    try{
+        res.json(await Bookmark.findByIdAndDelete(req.params.id))
+    }catch(error){
+        res.status(400).json(error)
+    }
 })
 
 
