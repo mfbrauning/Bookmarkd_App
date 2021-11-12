@@ -40,6 +40,42 @@ app.get("/", (req, res) => {
     res.send("App is working")
 })
 
+// Index Route 
+app.get("/bookmarks", async (req, res) => {
+    try{
+        res.json(await .find({}))
+    }catch(error){
+        res.status(400).json(error)
+    }
+})
+
+// Create Route
+app.post("/bookmarks", async(req, res) => {
+    try{
+        res.json(await .create(req.body))
+    }catch(error){
+        res.status(400).json(error)
+    }
+})
+
+// Update Route
+app.put("/bookmarks/:id", async (req, res) => {
+    try{
+        res.json(await .findByIdAndUpdate(req.body))
+    }catch(error){
+        res.status(400).json(error)
+    }
+})
+
+// Delete Route 
+app.delete("/bookmarks/:id", (req, res) => {
+    try{
+        res.json(await .findByIdAndDelete(req.body))
+    }catch(error){
+        res.status(400).json(error)
+    }
+})
+
 
 //////////////////////////////
 // LISTENER
